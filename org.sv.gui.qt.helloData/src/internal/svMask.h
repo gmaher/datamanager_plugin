@@ -14,9 +14,11 @@ svMask();
 svMask(const svMask& other);
 virtual ~svMask();
 
-void setImage(mitk::Image* image);
+void svMask::CreateInitialMask(mitk::Image *image);
 
 mitk::Image* GetImage();
+
+
 //virtual methods, that need to be implemented due to mitk::BaseData inheriting
 //from itk::DataObject
 //however if we dont intend to use this object with an itk filter we can leave them
