@@ -4,11 +4,13 @@ set(SRC_CPP_FILES
 
 set(INTERNAL_CPP_FILES
     svHelloData.cxx
+    svMask.cxx
     svHelloDataPluginActivator.cxx
 )
 
 set(MOC_H_FILES
     src/internal/svHelloData.h
+    src/internal/svMask.h
     src/internal/svHelloDataPluginActivator.h
 )
 
