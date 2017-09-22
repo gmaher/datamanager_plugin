@@ -16,7 +16,7 @@ virtual ~svMask();
 
 void setImage(mitk::Image* image);
 
-mitk::Image getImage();
+mitk::Image* GetImage();
 //virtual methods, that need to be implemented due to mitk::BaseData inheriting
 //from itk::DataObject
 //however if we dont intend to use this object with an itk filter we can leave them
@@ -31,7 +31,7 @@ protected:
 
 private:
 
-  mitk::Image m_mask;
+  mitk::Image* m_mask;
 };
 
 #endif //SVMASK_H
