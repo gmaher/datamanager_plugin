@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>365</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -54,6 +54,40 @@
     <widget class="QPushButton" name="helloPushType">
      <property name="text">
       <string>Push to Search For Class</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="ImageListLabel">
+     <property name="text">
+      <string>Images</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListView" name="svHelloDataImageListView"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="CreateMaskLabel">
+     <property name="text">
+      <string>Masks</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListView" name="svHelloDataListView"/>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="CreateMaskLineEdit">
+     <property name="text">
+      <string>New Mask Name</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="CreateMaskPushButton">
+     <property name="text">
+      <string>Create New Mask</string>
      </property>
     </widget>
    </item>

@@ -10,9 +10,9 @@ class svMask : public mitk::BaseData {
 
 public:
 
-svMask();
-svMask(const svMask& other);
-virtual ~svMask();
+mitkClassMacro(svDataFolder, mitk::BaseData);
+itkFactorylessNewMacro(Self)
+itkCloneMacro(Self)
 
 void setImage(mitk::Image* image);
 
@@ -28,6 +28,10 @@ virtual bool VerifyRequestedRegion() { return true;};
 virtual void SetRequestedRegion(const itk::DataObject *data) {};
 
 protected:
+
+svMask();
+svMask(const svMask& other);
+virtual ~svMask();
 
 private:
 

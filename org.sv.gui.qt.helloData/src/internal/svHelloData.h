@@ -18,6 +18,10 @@ public:
 
     virtual ~svHelloData();
 
+    void CreateNewMask();
+
+    void UpdateImageList();
+
     virtual void CreateQtPartControl(QWidget *parent) override;
 
     static const QString EXTENSION_ID;

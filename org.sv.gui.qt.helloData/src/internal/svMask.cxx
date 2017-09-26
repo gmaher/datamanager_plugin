@@ -13,7 +13,6 @@ svMask::svMask(const svMask& other)
 };
 
 svMask::~svMask(){
-  m_mask->Clear();
 
 };
 
