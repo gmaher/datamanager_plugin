@@ -5,12 +5,13 @@
 #include <vector>
 #include "mitkBaseData.h"
 #include "mitkImage.h"
+#include <QListView>
 
 class svMask : public mitk::BaseData {
 
 public:
 
-mitkClassMacro(svDataFolder, mitk::BaseData);
+mitkClassMacro(svMask, mitk::BaseData);
 itkFactorylessNewMacro(Self)
 itkCloneMacro(Self)
 

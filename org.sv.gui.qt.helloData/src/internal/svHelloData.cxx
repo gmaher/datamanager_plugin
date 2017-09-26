@@ -85,7 +85,7 @@ void svHelloData::UpdateImageList(){
   for (int i = 0; i < rs->size(); i++){
     mitk::DataNode::Pointer Node=rs->GetElement(i);
     std::cout << i << ": " << Node->GetName() << "\n";
-    ui->svHelloDataImageListView->addItem(Node->GetName());
+    ui->svHelloDataImageListView->addItem(Node->GetName().c_str());
   }
 
 }

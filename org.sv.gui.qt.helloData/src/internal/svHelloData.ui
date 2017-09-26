@@ -65,7 +65,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QListView" name="svHelloDataImageListView"/>
+    <widget class="QListWidget" name="svHelloDataImageListView"/>
    </item>
    <item>
     <widget class="QLabel" name="CreateMaskLabel">
@@ -75,7 +75,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QListView" name="svHelloDataListView"/>
+    <widget class="QListWidget" name="svHelloDataMaskListView"/>
    </item>
    <item>
     <widget class="QLineEdit" name="CreateMaskLineEdit">
