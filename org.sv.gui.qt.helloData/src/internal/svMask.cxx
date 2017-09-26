@@ -3,6 +3,7 @@
 
 svMask::svMask(){
   m_mask = mitk::Image::New();
+
 };
 
 svMask::svMask(const svMask& other)
@@ -20,9 +21,13 @@ svMask::~svMask(){
 };
 
 void svMask::CreateInitialMask(mitk::Image *image){
-  mitk::PixelType ptype = mitk::MakeScalarPixelType<int>();
-  m_mask->Initialize(ptype,
-    *(image->GetUpdatedGeometry()));
+  std::cout << "making pixel type\n";
+  mitk::PixelType ptype =
+    mitk::MakePixelType< itk::Image< int, 3 > >();
+
+  std::cout << "initializing image\n";
+  m_mask->Initialize(ptype, 3, image->GetDimensions());
+  std::cout << "Done initializing image\n";
 };
 
 mitk::Image* svMask::GetImage(){

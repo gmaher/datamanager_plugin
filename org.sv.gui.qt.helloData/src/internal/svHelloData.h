@@ -18,8 +18,6 @@ public:
 
     virtual ~svHelloData();
 
-    void CreateNewMask();
-
     void UpdateImageList();
 
     virtual void CreateQtPartControl(QWidget *parent) override;
@@ -31,7 +29,7 @@ public slots:
 
     void printDataTypeNode();
 
-
+    void CreateNewMask();
 
 public:
 

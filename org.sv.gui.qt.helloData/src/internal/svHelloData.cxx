@@ -1,10 +1,10 @@
 #include "svHelloData.h"
 #include "ui_svHelloData.h"
 #include <mitkNodePredicateDataType.h>
-
+#include "svMask.h"
 
 #include "svDataNodeOperation.h"
-
+#include "svDataNodeOperationInterface.h"
 #include <mitkDataStorage.h>
 #include <mitkDataNode.h>
 #include <mitkNodePredicateDataType.h>
@@ -41,6 +41,7 @@ void svHelloData::CreateQtPartControl(QWidget *parent){
 
   connect(ui->helloPushButton, SIGNAL(clicked()), this, SLOT(printDataNodes()) );
   connect(ui->helloPushType, SIGNAL(clicked()), this, SLOT(printDataTypeNode()) );
+  connect(ui->CreateMaskPushButton, SIGNAL(clicked()), this, SLOT(CreateNewMask()) );
 
   UpdateImageList();
 }
@@ -91,7 +92,66 @@ void svHelloData::UpdateImageList(){
 }
 
 void svHelloData::CreateNewMask(){
+  std::cout << "create new mask clicked\n";
+  QListWidgetItem* currentImage = ui->svHelloDataImageListView->currentItem();
 
+  if (currentImage == NULL){
+    MITK_ERROR << "No Image selected, please select an image" << std::endl;
+    return;
+  }
 
+  const char* image_name = currentImage->text().toStdString().c_str();
+
+  mitk::DataNode * image_node = GetDataStorage()->GetNamedNode(image_name);
+
+  if (image_node == NULL){
+    MITK_ERROR << "Image " << image_name << " not found" << std::endl;
+    return;
+  }
+
+  //check that no current mask already exists with the specified name
+  std::string mask_name = ui->CreateMaskLineEdit->text().toStdString();
+  mitk::DataNode * mask_node_existing = GetDataStorage()->GetNamedNode(mask_name);
+  if (!(mask_node_existing == NULL)){
+    MITK_ERROR << "Mask with name " << mask_name << " already exists, use a\
+      different name\n";
+  }
+
+  std::cout <<"making mask\n";
+  svMask *mask = svMask::New();
+  std::cout <<"creating initial mask\n";
+  mitk::Image* image_data = dynamic_cast<mitk::Image*>(image_node->GetData());
+
+  if (image_data == NULL){
+    MITK_ERROR << "Image data is null, cannot create mask\n";
+  }
+  mask->CreateInitialMask(image_data);
+
+  std::cout <<"adding mask to data manager\n";
+
+  mitk::DataNode* mask_node = mitk::DataNode::New();
+  mask_node->SetName(mask_name);
+  mask_node->SetData(mask);
+
+  svDataNodeOperationInterface* m_Interface=new svDataNodeOperationInterface;
+
+  std::cout <<"making operation\n";
+
+  mitk::OperationEvent::IncCurrObjectEventId();
+  bool undoEnabled=true;
+  svDataNodeOperation* doOp = new svDataNodeOperation(svDataNodeOperation::OpADDDATANODE,
+    GetDataStorage(),mask_node,image_node);
+  if(undoEnabled)
+  {
+      svDataNodeOperation* undoOp = new svDataNodeOperation(
+        svDataNodeOperation::OpREMOVEDATANODE,GetDataStorage(),mask_node,image_node);
+      mitk::OperationEvent *operationEvent = new mitk::OperationEvent(
+        m_Interface, doOp, undoOp, "Add DataNode");
+      mitk::UndoController::GetCurrentUndoModel()->SetOperationEvent( operationEvent );
+  }
+  std::cout <<"executing operation\n";
+
+  m_Interface->ExecuteOperation(doOp);
+  std::cout <<"operation executed\n";
 
 }
