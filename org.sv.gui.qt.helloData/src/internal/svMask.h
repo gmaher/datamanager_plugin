@@ -15,7 +15,7 @@ public:
   itkFactorylessNewMacro(Self)
   itkCloneMacro(Self)
 
-  void svMask::CreateInitialMask(mitk::Image *image);
+  void CreateInitialMask(mitk::Image *image);
 
   itk::Image<int,3>* GetImage();
 

@@ -4,7 +4,7 @@
 #include "svMask.h"
 
 #include "svDataNodeOperation.h"
-#include "svDataNodeOperationInterface.h"
+
 #include <mitkDataStorage.h>
 #include <mitkDataNode.h>
 #include <mitkNodePredicateDataType.h>
@@ -44,6 +44,8 @@ void svHelloData::CreateQtPartControl(QWidget *parent){
   connect(ui->CreateMaskPushButton, SIGNAL(clicked()), this, SLOT(CreateNewMask()) );
 
   UpdateImageList();
+  std::cout <<"Making operation interface\n";
+  m_Interface= new svDataNodeOperationInterface();
 }
 
 void svHelloData::printDataNodes(){
@@ -135,8 +137,7 @@ void svHelloData::CreateNewMask(){
   std::cout <<"Setting node data\n";
   mask_node->SetData(mask);
 
-  std::cout <<"Making operation interface\n";
-  svDataNodeOperationInterface* m_Interface= new svDataNodeOperationInterface;
+
 
   std::cout <<"making operation\n";
 

@@ -3,7 +3,7 @@
 
 #include <QmitkFunctionality.h>
 #include <QString>
-
+#include "svDataNodeOperationInterface.h"
 namespace Ui {
 class svHelloData;
 }
@@ -42,6 +42,8 @@ protected:
   QWidget *m_parent;
 
   QmitkStdMultiWidget* m_DisplayWidget;
+
+  svDataNodeOperationInterface* m_Interface;
 };
 
 #endif // SVHELLODATA_H
