@@ -102,9 +102,9 @@ void svHelloData::CreateNewMask(){
 
   const char* image_name = currentImage->text().toStdString().c_str();
 
-  mitk::DataNode * image_node = GetDataStorage()->GetNamedNode(image_name);
+  mitk::DataNode::Pointer image_node = GetDataStorage()->GetNamedNode(image_name);
 
-  if (image_node == NULL){
+  if (image_node.IsNull()){
     MITK_ERROR << "Image " << image_name << " not found" << std::endl;
     return;
   }
@@ -118,7 +118,7 @@ void svHelloData::CreateNewMask(){
   }
 
   std::cout <<"making mask\n";
-  svMask *mask = svMask::New();
+  svMask::Pointer mask = svMask::New();
   std::cout <<"creating initial mask\n";
   mitk::Image* image_data = dynamic_cast<mitk::Image*>(image_node->GetData());
 
@@ -129,18 +129,23 @@ void svHelloData::CreateNewMask(){
 
   std::cout <<"adding mask to data manager\n";
 
-  mitk::DataNode* mask_node = mitk::DataNode::New();
+  mitk::DataNode::Pointer mask_node = mitk::DataNode::New();
   mask_node->SetName(mask_name);
+
+  std::cout <<"Setting node data\n";
   mask_node->SetData(mask);
 
-  svDataNodeOperationInterface* m_Interface=new svDataNodeOperationInterface;
+  std::cout <<"Making operation interface\n";
+  svDataNodeOperationInterface* m_Interface= new svDataNodeOperationInterface;
 
   std::cout <<"making operation\n";
 
   mitk::OperationEvent::IncCurrObjectEventId();
+  std::cout <<"eventid\n";
   bool undoEnabled=true;
   svDataNodeOperation* doOp = new svDataNodeOperation(svDataNodeOperation::OpADDDATANODE,
     GetDataStorage(),mask_node,image_node);
+  std::cout <<"if statement\n";
   if(undoEnabled)
   {
       svDataNodeOperation* undoOp = new svDataNodeOperation(

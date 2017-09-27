@@ -2,16 +2,14 @@
 #include "mitkPixelType.h"
 
 svMask::svMask(){
-  m_mask = mitk::Image::New();
 
 };
 
 svMask::svMask(const svMask& other)
   :BaseData(other)
 {
-  m_mask = mitk::Image::New();
 
-  CreateInitialMask(other.GetImage());
+  m_mask = other.GetImage()->Clone();
 
 
 };
@@ -21,15 +19,32 @@ svMask::~svMask(){
 };
 
 void svMask::CreateInitialMask(mitk::Image *image){
-  std::cout << "making pixel type\n";
-  mitk::PixelType ptype =
-    mitk::MakePixelType< itk::Image< int, 3 > >();
+  m_mask = itk::Image<int,3>::New();
+  std::cout << "Made mask";
+  itk::Image<int,3>::SizeType size;
+  std::cout << "Getting Dimensions\n";
+  unsigned int* dims = image->GetDimensions();
+  std::cout << "Got Dimensions\n";
+  size[0] = dims[0];
+  size[1] = dims[1];
+  size[2] = dims[2];
 
-  std::cout << "initializing image\n";
-  m_mask->Initialize(ptype, 3, image->GetDimensions());
-  std::cout << "Done initializing image\n";
+  itk::Image<int,3>::IndexType start;
+  start[0] = 0;
+  start[1] = 0;
+  start[2] = 0;
+
+  std::cout << "Setting region\n";
+  itk::Image<int,3>::RegionType region;
+  region.SetSize(size);
+  region.SetIndex(start);
+
+  std::cout << "allocating image\n";
+  m_mask->SetRegions(region);
+  m_mask->Allocate();
+  m_mask->FillBuffer(0);
 };
 
-mitk::Image* svMask::GetImage(){
+itk::Image<int,3>* svMask::GetImage(){
   return m_mask;
 };

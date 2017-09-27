@@ -17,7 +17,7 @@ public:
 
   void svMask::CreateInitialMask(mitk::Image *image);
 
-  mitk::Image* GetImage();
+  itk::Image<int,3>* GetImage();
 
 
   //virtual methods, that need to be implemented due to mitk::BaseData inheriting
@@ -39,7 +39,7 @@ protected:
 
 private:
 
-  mitk::Image::Pointer m_mask;
+  itk::Image<int,3>::Pointer m_mask;
 };
 
 #endif //SVMASK_H
