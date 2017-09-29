@@ -44,6 +44,7 @@ void svHelloData::CreateQtPartControl(QWidget *parent){
   connect(ui->CreateMaskPushButton, SIGNAL(clicked()), this, SLOT(CreateNewMask()) );
 
   UpdateImageList();
+  UpdateMaskList();
   std::cout <<"Making operation interface\n";
   m_Interface= new svDataNodeOperationInterface();
 }
@@ -89,6 +90,25 @@ void svHelloData::UpdateImageList(){
     mitk::DataNode::Pointer Node=rs->GetElement(i);
     std::cout << i << ": " << Node->GetName() << "\n";
     ui->svHelloDataImageListView->addItem(Node->GetName().c_str());
+  }
+
+}
+
+void svHelloData::UpdateMaskList(){
+  mitk::NodePredicateDataType::Pointer TypeCondition = mitk::NodePredicateDataType::New("svMask");
+
+  mitk::DataStorage::SetOfObjects::ConstPointer rs=GetDataStorage()->GetSubset(TypeCondition);
+
+  if (rs->size() == 0){
+    std::cout << "No masks found, cannot populate list\n";
+    return ;
+  }
+  ui->svHelloDataMaskListView->clear();
+
+  for (int i = 0; i < rs->size(); i++){
+    mitk::DataNode::Pointer Node=rs->GetElement(i);
+    std::cout << i << ": " << Node->GetName() << "\n";
+    ui->svHelloDataMaskListView->addItem(Node->GetName().c_str());
   }
 
 }
@@ -159,5 +179,5 @@ void svHelloData::CreateNewMask(){
 
   m_Interface->ExecuteOperation(doOp);
   std::cout <<"operation executed\n";
-
+  UpdateMaskList();
 }

@@ -20,6 +20,8 @@ public:
 
     void UpdateImageList();
 
+    void UpdateMaskList();
+
     virtual void CreateQtPartControl(QWidget *parent) override;
 
     static const QString EXTENSION_ID;
