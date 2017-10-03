@@ -4,6 +4,8 @@
 #include <QmitkFunctionality.h>
 #include <QString>
 #include "svDataNodeOperationInterface.h"
+#include "svMaskInteractor.h"
+
 namespace Ui {
 class svHelloData;
 }
@@ -23,6 +25,8 @@ public:
     void UpdateMaskList();
 
     virtual void CreateQtPartControl(QWidget *parent) override;
+
+    virtual void OnSelectionChanged(std::vector<mitk::DataNode*> nodes) override;
 
     static const QString EXTENSION_ID;
 
@@ -46,6 +50,10 @@ protected:
   QmitkStdMultiWidget* m_DisplayWidget;
 
   svDataNodeOperationInterface* m_Interface;
+
+  svMaskInteractor::Pointer m_MaskInteractor;
+
+  mitk::DataNode::Pointer m_MaskNode;
 };
 
 #endif // SVHELLODATA_H

@@ -49,6 +49,40 @@ void svHelloData::CreateQtPartControl(QWidget *parent){
   m_Interface= new svDataNodeOperationInterface();
 }
 
+void svHelloData::OnSelectionChanged(std::vector<mitk::DataNode*> nodes){
+  std::cout << "helloData selection changed\n";
+
+  //get mask node
+  QListWidgetItem* currentMask = ui->svHelloDataMaskListView->currentItem();
+
+  if (currentMask == NULL){
+    MITK_ERROR << "No Mask selected, please select a Mask" << std::endl;
+    return;
+  }
+
+  const char* mask_name = currentMask->text().toStdString().c_str();
+
+  mitk::DataNode::Pointer mask_node = GetDataStorage()->GetNamedNode(mask_name);
+
+  if (mask_node.IsNull()){
+    MITK_ERROR << "Mask " << mask_name << " not found" << std::endl;
+    return;
+  }
+
+  if (mask_node == m_MaskNode){
+    return;
+  }
+
+  m_MaskNode = mask_node;
+
+  //create data interactor
+  m_MaskInteractor = svMaskInteractor::New();
+  m_MaskInteractor->LoadStateMachine("statemachine.xml");
+  m_MaskInteractor->SetEventConfig("config.xml");
+  m_MaskInteractor->SetDataNode(m_MaskNode);
+
+}
+
 void svHelloData::printDataNodes(){
   mitk::DataStorage::SetOfObjects::ConstPointer rs=GetDataStorage()->GetAll();
   for (int i = 0; i < rs->size(); i++){
