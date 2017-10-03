@@ -23,8 +23,11 @@ set(UI_FILES
 set(CACHED_RESOURCE_FILES
   plugin.xml
   resources/hello.png
-  resources/interactions/config.xml
-  resources/interactions/statemachine.xml
+)
+
+set(RESOURCE_FILES
+    Interactions/config.xml
+    Interactions/statemachine.xml
 )
 
 set(QRC_FILES

@@ -10,8 +10,13 @@
 #include <mitkNodePredicateDataType.h>
 #include <mitkUndoController.h>
 #include <mitkImage.h>
-
+#include <usModuleRegistry.h>
+#include <usGetModuleContext.h>
+#include <usModule.h>
+#include <usModuleContext.h>
 const QString svHelloData::EXTENSION_ID = "org.sv.views.hello";
+
+US_USE_NAMESPACE
 
 svHelloData::svHelloData() :
   ui(new Ui::svHelloData)
@@ -76,9 +81,14 @@ void svHelloData::OnSelectionChanged(std::vector<mitk::DataNode*> nodes){
   m_MaskNode = mask_node;
 
   //create data interactor
+  ModuleContext* context = GetModuleContext();
+  Module* module = context->GetModule();
+  std::cout << "Module name: " << module->GetName() << " [id: " << module->GetModuleId()
+    << " location " << module->GetLocation() << "]\n";
+
   m_MaskInteractor = svMaskInteractor::New();
-  m_MaskInteractor->LoadStateMachine("statemachine.xml");
-  m_MaskInteractor->SetEventConfig("config.xml");
+  //m_MaskInteractor->LoadStateMachine("statemachine.xml",us::ModuleRegistry::GetModule("org_sv_gui_qt_helloData"));
+  m_MaskInteractor->SetEventConfig("config.xml",us::ModuleRegistry::GetModule("org_sv_gui_qt_helloData"));
   m_MaskInteractor->SetDataNode(m_MaskNode);
 
 }
