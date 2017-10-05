@@ -18,6 +18,8 @@ protected:
 
   virtual void paint(mitk::StateMachineAction*, mitk::InteractionEvent*);
 
+  virtual void press_a(mitk::StateMachineAction*, mitk::InteractionEvent*);
+
   svMask* m_mask;
 
 private:

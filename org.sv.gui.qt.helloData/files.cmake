@@ -22,7 +22,7 @@ set(UI_FILES
 
 set(CACHED_RESOURCE_FILES
   plugin.xml
-  resources/hello.png
+  resource/hello.png
 )
 
 set(RESOURCE_FILES

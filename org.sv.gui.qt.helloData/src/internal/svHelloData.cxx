@@ -87,8 +87,8 @@ void svHelloData::OnSelectionChanged(std::vector<mitk::DataNode*> nodes){
     << " location " << module->GetLocation() << "]\n";
 
   m_MaskInteractor = svMaskInteractor::New();
-  //m_MaskInteractor->LoadStateMachine("statemachine.xml",us::ModuleRegistry::GetModule("org_sv_gui_qt_helloData"));
-  m_MaskInteractor->SetEventConfig("config.xml",us::ModuleRegistry::GetModule("org_sv_gui_qt_helloData"));
+  m_MaskInteractor->LoadStateMachine("statemachine.xml",us::ModuleRegistry::GetModule("svPath"));
+  m_MaskInteractor->SetEventConfig("config.xml",us::ModuleRegistry::GetModule("svPath"));
   m_MaskInteractor->SetDataNode(m_MaskNode);
 
 }
