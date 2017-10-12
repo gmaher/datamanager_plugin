@@ -16,9 +16,9 @@ protected:
 
   virtual void ConnectActionsAndFunctions() override;
 
-  virtual void paint(mitk::StateMachineAction*, mitk::InteractionEvent*);
+  virtual void paint_(mitk::StateMachineAction* a, mitk::InteractionEvent* e);
 
-  virtual void press_a(mitk::StateMachineAction*, mitk::InteractionEvent*);
+  virtual void press_a_(mitk::StateMachineAction* a, mitk::InteractionEvent* e);
 
   svMask* m_mask;
 
